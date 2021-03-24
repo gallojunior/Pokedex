@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1 class="text-center display-4 mb-4">Pokédex</h1>
+
+<div class="row">
+    @foreach (var pokemon in Model.Pokemons)
+    {
+        <a asp-page="/Pokemon" asp-route-id="@pokemon.Numero">
+            <div class="card col-md-6 col-lg-3 mb-5">
+                <img class="card-img-top" src="@pokemon.Imagem" alt="@pokemon.Nome">
+                <div class="card-body">
+                    <p>Nº @pokemon.Numero.ToString("000")</p>
+                    <h4 class="card-title">@pokemon.Nome</h4>
+                    <div class="tipo">
+                        @foreach (var tipo in pokemon.Tipo)
+                        {
+                            <a href="#" class="btn tipo-@tipo">@tipo</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+</div>
+

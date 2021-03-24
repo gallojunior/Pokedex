@@ -1,0 +1,41 @@
+﻿@page
+@model Pokedex.Pages.PokemonModel
+@{
+    ViewData["Title"] = "Pokémon";
+}
+
+<div class="text-center d-inline-block w-100 mt-5 mb-5">
+    @if (Model.Anterior != null)
+    {
+        <a asp-page="/Pokemon" asp-route-id="@Model.Anterior.Numero" class="btn btn-lg btn-outline-dark float-left">
+            @string.Concat("Nº", Model.Anterior.Numero.ToString("000"), " ", Model.Anterior.Nome)
+        </a>
+    }
+    @if (Model.Proximo != null)
+    {
+        <a asp-page="/Pokemon" asp-route-id="@Model.Proximo.Numero" class="btn btn-lg btn-outline-dark float-right">
+            @string.Concat("Nº", Model.Proximo.Numero.ToString("000"), " ", Model.Proximo.Nome)
+        </a>
+    }
+    <h1 class="display-4">@Model.Pokemon.Nome - Nº @Model.Pokemon.Numero.ToString("000")</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <img class="img-fluid" src="@Url.Content(Model.Pokemon.Imagem)" alt="@Model.Pokemon.Nome">
+    </div>
+    <div class="col-lg-6">
+        <label class="mt-5 text-justify">@Model.Pokemon.Descricao</label> <hr />
+        <label class="titulo w-25">Categoria</label><label>@Model.Pokemon.Especie</label> <hr />
+        <label class="titulo w-25">Altura</label><label>@Model.Pokemon.Altura.ToString("N2") mt</label><hr />
+        <label class="titulo w-25">Peso</label><label>@Model.Pokemon.Peso.ToString("N1") kg</label><hr />
+
+        <div class="tipo mt-2">
+            <label class="titulo w-25">Tipo</label>
+            @foreach (var item in Model.Pokemon.Tipo)
+            {
+                <a href="#" class="btn btn-lg tipo-@item">@item</a>
+            }
+        </div>
+    </div>
+</div>
