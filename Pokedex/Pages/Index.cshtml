@@ -6,6 +6,16 @@
 
 <h1 class="text-center display-4 mb-4">Pokédex</h1>
 
+<div class="row mb-5">
+    <div class="col tipo text-center">
+        @foreach (var tipo in (List<string>)ViewData["Tipos"])
+        {
+            <a asp-page="Index" asp-route-Tipo="@tipo" class="btn tipo-@tipo mr-2">@tipo</a>
+        }
+        <a asp-page="Index" class="btn btn-secondary">Ver Todos</a>
+    </div>
+</div>
+
 <div class="row">
     @foreach (var pokemon in Model.Pokemons)
     {
@@ -18,7 +28,7 @@
                     <div class="tipo">
                         @foreach (var tipo in pokemon.Tipo)
                         {
-                            <a href="#" class="btn tipo-@tipo">@tipo</a>
+                            <a asp-page="Index" asp-route-Tipo="@tipo" class="btn tipo-@tipo">@tipo</a>
                         }
                     </div>
                 </div>

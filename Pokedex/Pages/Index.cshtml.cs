@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Pokedex.Classes;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace Pokedex.Pages
@@ -19,13 +20,24 @@ namespace Pokedex.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet(string Tipo)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("Pokemons")))
             {
                 PopularLista();
             }
-            Pokemons = JsonSerializer.Deserialize<List<Pokemon>>(HttpContext.Session.GetString("Pokemons"));
+            var pokemons = JsonSerializer.Deserialize<List<Pokemon>>(HttpContext.Session.GetString("Pokemons"));
+            var tipos = pokemons.SelectMany(p => p.Tipo).Distinct().ToList();
+            tipos.Sort();
+            ViewData["Tipos"] = tipos;
+            if (string.IsNullOrEmpty(Tipo))
+            {
+                Pokemons = pokemons;
+            }
+            else
+            {
+                Pokemons = pokemons.Where(p => p.Tipo.Contains(Tipo)).ToList();
+            }
         }
 
         public void PopularLista()

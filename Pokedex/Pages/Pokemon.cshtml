@@ -32,9 +32,9 @@
 
         <div class="tipo mt-2">
             <label class="titulo w-25">Tipo</label>
-            @foreach (var item in Model.Pokemon.Tipo)
+            @foreach (var tipo in Model.Pokemon.Tipo)
             {
-                <a href="#" class="btn btn-lg tipo-@item">@item</a>
+                <a asp-page="Index" asp-route-Tipo="@tipo" class="btn btn-lg tipo-@tipo">@tipo</a>
             }
         </div>
     </div>
